@@ -1,0 +1,113 @@
+﻿
+
+@model Email_Update_3.Models.Student_Info
+
+<h4>Type Student ID</h4>
+<form id="student" method="post" asp-action="GetStudentByID" asp-controller="Home">
+    <input class="form-control" id="StudentID" type="text" name="ID" value="" placeholder="Please type Student ID" />
+    <br />
+    <button type="submit" class="btn btn-info">Search Student</button>
+</form>
+<label class="text-danger"> @ViewBag.msg</label>
+
+<br />
+<br />
+<div class="form-row">
+
+    @if (Model != null)
+    {
+        <form id="student-email" method="post" asp-action="UpdateEmail" asp-controller="Home">
+            <label>Student Id</label>
+            <input class="form-control" readonly="readonly" type="text" name="StudentID" value="@Model.StudentId" placeholder="Please type Student ID" />
+            <br />
+            <label>Email</label>
+            <input class="form-control" type="text" name="Email" value="@Model.Email" placeholder="Please Email" /><br />
+            <button type="submit" class="btn btn-success">Update Email Confirm</button>
+        </form>
+    }
+
+
+
+    @section Scripts{
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+        <script>
+
+
+
+                      $(document).ready(function () {
+
+
+
+                          $("#student-email").validate({
+                              rules: {
+                                  StudentID: {
+                                      required: true,
+
+                                  },
+
+                                  Email: {
+                                      required: true,
+                                      email: true
+                                  },
+                                  messages: {
+                                      StudentID: {
+                                          required: "Student ID should be searched by typing above field ",
+                                      },
+
+
+                                      Email: {
+                                          required: "Email is required",
+                                          email: "The email should be in the format: abc@diu.edu.bd"
+                                      }
+                                  }
+                              }
+
+                          });
+
+                          $("#student").validate({
+                              rules: {
+                                  ID: {
+                                      required: true,
+
+                                  },
+
+                                  messages: {
+
+                                      ID: "Please type an ID"
+
+                                  }
+
+
+
+                              }
+
+                          });
+                      });
+
+        </script>
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+

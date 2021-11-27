@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Email_Update_3.Models.Student_Info>
+
+<div style="margin-top:100px">
+    <form method="post" asp-action="EmailChecking" asp-controller="Home">
+        <h4>Please Select Semester</h4>
+        <select name="Semester" class="form-control" style="width:500px" id="semsters" required>
+            <option value="">Select Semester </option>
+            @foreach (var item in @ViewBag.SemesterList)
+            {
+                <option value="@item.SemesterId-">@item.SemesterId </option>
+            }
+
+        </select>
+        <br /><br />
+        <button type="submit" class="btn btn-success">Find The Student List Of Null Email</button>
+    </form>
+</div>
+@if (Model == null)
+{
+    <br />
+    <br />
+    <h4 style="color:red" class="mt-auto">@ViewBag.msg</h4>
+
+}
+
+<br />
+<table id="myTable" class="display nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>  Student_ID  </th>
+            <th>  Email  </th>
+            <th>  StudentName  </th>
+            <th>  Proggramme ID  </th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.StudentId</td>
+                    <td>@item.Email</td>
+                    <td>@item.StudentName</td>
+                    <td>@item.ProgrammeID</td>
+
+                </tr>
+            }
+        }
+
+
+
+    </tbody>
+
+
+
+
+</table>
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+           
+            @*var baseurl = @ViewBag.Url;
+        
+
+        <!--$.ajax({
+
+            url: '/home/getallsemester',
+            type: 'get',
+            datatype: 'json',
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (i, obj) {
+
+                    var s = '<option value="' + obj.semesterId + '-">' + obj.semesterId + '</option>';
+
+                    $("#semsters").append(s);
+                });
+            }
+
+
+        })-->*@
+
+
+        $('#myTable').DataTable(
+            {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy',
+                    'csv',
+                    {
+                        extend: 'excel',
+                        filename: 'EmailUpdate',
+                        title: ''
+                    },
+                    'pdf',
+                    'print'
+                ]
+            }
+        );
+    });
+
+
+
+
+    </script>
+
+
+}
+

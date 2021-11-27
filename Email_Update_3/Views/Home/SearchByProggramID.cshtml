@@ -1,0 +1,121 @@
+﻿
+@model IEnumerable<Email_Update_3.Models.Student_Info>
+<form method="post" asp-action="SearchByProggramID" asp-controller="Home">
+    <label>Semester</label>
+    <select name="Semester" class="form-control SelectClass" style="width:500px" required>
+        <option value="">-- Select Semester -- </option>
+        @foreach (var item in @ViewBag.SemesterList)
+        {
+            <option value="@item.SemesterId-">@item.SemesterId </option>
+        }
+
+    </select>
+    <br />
+    <label>Programme</label>
+    <select name="Programme" class="form-control SelectClass" style="width:500px" required>
+        <option value="">-- Select ProgramName -- </option>
+        @foreach (var item in @ViewBag.Programme)
+        {
+            <option value="@item.ProgramId-">@item.ProgramName </option>
+        }
+
+    </select>
+    <br />
+    <button type="submit" class="btn btn-success">Get Student</button>
+</form>
+<br />
+<label class="text-danger">@ViewBag.msg</label>
+
+@if (Model == null)
+{
+    <br />
+    <br />
+    <label style="color:red" class="mt-auto">@ViewBag.msg</label>
+
+}
+
+<br />
+<table id="myTable" class="display nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>  Student_ID  </th>
+            <th>  StudentName  </th>
+            <th>  Email  </th>
+            <th>  Proggramme ID  </th>
+            <th>  Phone Number  </th>
+            <th>  CampusName  </th>
+            <th>  Address  </th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.StudentId</td>
+                    <td>@item.StudentName</td>
+                    <td>@item.Email</td>
+                    <td>@item.ProgrammeID</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.CampusName</td>
+                    <td>@item.Address</td>
+
+                </tr>
+            }
+        }
+
+
+
+    </tbody>
+
+
+
+
+</table>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //$.ajax({
+
+            //    url: '/Home/GetAllSemester',
+            //    type: 'GET',
+            //    dataType: 'JSON',
+            //    success: function (data) {
+            //        // console.log(data);
+            //        $.each(data, function (i, obj) {
+
+            //            var s = '<option value="' + obj.semesterId + '-">' + obj.semesterId + '</option>';
+
+            //            $("#Semsters").append(s);
+            //        });
+            //    }
+
+
+            //})
+
+
+            $('#myTable').DataTable(
+                {
+
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ]
+                }
+            );
+        });
+
+
+
+
+    </script>
+
+
+}
